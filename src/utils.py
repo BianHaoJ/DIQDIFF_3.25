@@ -1,11 +1,14 @@
+# -*- coding: utf-8 -*-
 import torch.utils.data as data_utils
 import torch
+import random
 
 
 class TrainDataset(data_utils.Dataset):
-    def __init__(self, id2seq, max_len):
+    def __init__(self, id2seq, max_len, args=None):
         self.id2seq = id2seq
         self.max_len = max_len
+        self.args = args
 
     def __len__(self):
         return len(self.id2seq)
@@ -14,9 +17,19 @@ class TrainDataset(data_utils.Dataset):
         seq = self._getseq(index)
         labels = [seq[-1]]
         tokens = seq[:-1]
-        tokens = tokens[-self.max_len:]
-        mask_len = self.max_len - len(tokens)
-        tokens = [0] * mask_len + tokens
+
+        if getattr(self, 'args', None) is not None and self.args.rep_pad:
+            tokens = rep_pad_sequence(
+                tokens=tokens,
+                max_len=self.max_len,
+                mode=self.args.rep_pad_mode,
+                fixed_num=self.args.rep_pad_fixed_num,
+                use_delimiter=self.args.rep_pad_delimiter
+            )
+        else:
+            tokens = tokens[-self.max_len:]
+            mask_len = self.max_len - len(tokens)
+            tokens = [0] * mask_len + tokens
         return torch.LongTensor(tokens), torch.LongTensor(labels)
 
     def _getseq(self, idx):
@@ -29,6 +42,7 @@ class Data_Train():
         self.max_len = args.max_len
         self.batch_size = args.batch_size
         self.split_onebyone()
+        self.args = args
 
     def split_onebyone(self):
         self.id_seq = {}
@@ -41,7 +55,7 @@ class Data_Train():
                 idx += 1
 
     def get_pytorch_dataloaders(self):
-        dataset = TrainDataset(self.id_seq, self.max_len)
+        dataset = TrainDataset(self.id_seq, self.max_len, self.args)
         return data_utils.DataLoader(dataset, batch_size=self.batch_size, shuffle=True, pin_memory=True)
 
 
@@ -144,3 +158,49 @@ class Data_CHLS():
         dataset = CHLSDataset(self.data, self.max_len)
         dataloader = data_utils.DataLoader(dataset, batch_size=self.batch_size, shuffle=False, pin_memory=True)
         return dataloader
+
+
+############################################################
+# RepPad 辅助函数 —— 放这里（全局）
+############################################################
+
+def rep_pad_sequence(tokens, max_len, mode='rand_1_max',
+                     fixed_num=1, use_delimiter=False):
+
+    if len(tokens) >= max_len:
+        return tokens[-max_len:]
+
+    if len(tokens) == 0:
+        return [0] * max_len
+
+    base = list(tokens)
+    seq = list(tokens)
+
+    if use_delimiter:
+        unit_len = len(base) + 1
+    else:
+        unit_len = len(base)
+
+    max_num = max_len // max(1, unit_len)
+
+    if mode == 'fix':
+        pad_num = fixed_num
+    elif mode == 'max':
+        pad_num = max_num
+    elif mode == 'rand_0_max':
+        pad_num = random.randint(0, max_num)
+    elif mode == 'rand_1_max':
+        pad_num = random.randint(1, max_num) if max_num >= 1 else 0
+    else:
+        raise ValueError('Unknown rep_pad_mode')
+
+    for _ in range(pad_num):
+        if use_delimiter:
+            seq = base + [0] + seq
+        else:
+            seq = base + seq
+
+    if len(seq) < max_len:
+        seq = [0] * (max_len - len(seq)) + seq
+
+    return seq[-max_len:]

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import random
 import argparse
@@ -18,8 +20,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default='amazon_beauty', help='Dataset name: toys, amazon_beauty, steam, ml-1m')
 parser.add_argument('--log_file', default='log/', help='log dir path')
 parser.add_argument('--random_seed', type=int, default=1997, help='Random seed')
-parser.add_argument('--num_cluster', type=int, default=2, help='Number of cluster of intents.')  
-parser.add_argument('--num_iter', type=str, default=20, help='Number of iters of clusters.')  
+parser.add_argument('--num_cluster', type=int, default=2, help='Number of cluster of intents.')
+parser.add_argument('--num_iter', type=int, default=20, help='Number of iters of clusters.')
 parser.add_argument('--max_len', type=int, default=50, help='The max length of sequence')
 parser.add_argument('--device', type=str, default='cuda', choices=['cpu', 'cuda'])
 parser.add_argument('--num_gpu', type=int, default=1, help='Number of GPU')
@@ -53,6 +55,14 @@ parser.add_argument('--long_head', default=False, help='Long and short sequence,
 parser.add_argument('--diversity_measure', default=False, help='Measure the diversity of recommendation results')
 parser.add_argument('--epoch_time_avg', default=False, help='Calculate the average time of one epoch training')
 parser.add_argument("--num_hidden_layers", type=int, default=1, help="number of layers")
+parser.add_argument('--rep_pad', action='store_true', help='use repeated padding in training')
+parser.add_argument('--rep_pad_mode', type=str, default='rand_1_max',
+                    choices=['fix', 'max', 'rand_0_max', 'rand_1_max'],
+                    help='repeated padding mode')
+parser.add_argument('--rep_pad_fixed_num', type=int, default=1,
+                    help='fixed repeated times when rep_pad_mode=fix')
+parser.add_argument('--rep_pad_delimiter', action='store_true',
+                    help='insert delimiter 0 between repeated segments')
 args = parser.parse_args()
 
 print(args)
@@ -144,62 +154,80 @@ def cold_hot_long_short(data_raw, dataset_name):
 
 
 def main(args):    
+    # 设置随机种子以确保实验可重复
     fix_random_seed_as(args.random_seed)
-    path_data = 'datasets/data/' + args.dataset + '/dataset.pkl'
+    # 加载数据集文件
+    # 设置正确的数据路径
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 获取项目根目录
+    path_data = os.path.join(project_root, 'datasets', 'data', args.dataset, 'dataset.pkl')
     with open(path_data, 'rb') as f:
         data_raw = pickle.load(f)
     
-   
-    
+    # 创建项目数量参数
     args = item_num_create(args, len(data_raw['smap']))
     logger.info(args)
+    
+    # 准备训练、验证和测试数据
     tra_data = Data_Train(data_raw['train'], args)
     val_data = Data_Val(data_raw['train'], data_raw['val'], args)
     test_data = Data_Test(data_raw['train'], data_raw['val'], data_raw['test'], args)
+    
+    # 获取PyTorch数据加载器
     tra_data_loader = tra_data.get_pytorch_dataloaders()
     val_data_loader = val_data.get_pytorch_dataloaders()
     test_data_loader = test_data.get_pytorch_dataloaders()
-    # diffu_rec = create_model_diffu(args)
+    
+    # 初始化CoDiffu模型
     model = CoDiffu(args)
     
+    # 训练模型并获取最佳模型和测试结果
     best_model, test_results = model_train(tra_data_loader, val_data_loader, test_data_loader, model, args, logger)
 
-
+    # 如果设置了长尾/热门项目分析
     if args.long_head:
+        # 获取冷门/热门项目和长短序列的字典
         cold_hot_dict, len_seq_dict = cold_hot_long_short(data_raw, args.dataset)
+        
+        # 对冷门项目进行推理
         cold_data = Data_CHLS(cold_hot_dict['cold'], args)
         cold_data_loader = cold_data.get_pytorch_dataloaders()
-        print('--------------Cold item-----------------------')
+        print('--------------冷门项目-----------------------')
         LSHT_inference(best_model, args, cold_data_loader)
 
+        # 对热门项目进行推理
         hot_data = Data_CHLS(cold_hot_dict['hot'], args)
         hot_data_loader = hot_data.get_pytorch_dataloaders()
-        print('--------------hot item-----------------------')
+        print('--------------热门项目-----------------------')
         LSHT_inference(best_model, args, hot_data_loader)
 
+        # 对短序列进行推理
         short_data = Data_CHLS(len_seq_dict['short'], args)
         short_data_loader = short_data.get_pytorch_dataloaders()
-        print('--------------Short-----------------------')
+        print('--------------短序列-----------------------')
         LSHT_inference(best_model, args, short_data_loader)
 
+        # 对中短序列进行推理
         mid_short_data = Data_CHLS(len_seq_dict['mid_short'], args)
         mid_short_data_loader = mid_short_data.get_pytorch_dataloaders()
-        print('--------------Mid_short-----------------------')
+        print('--------------中短序列-----------------------')
         LSHT_inference(best_model, args, mid_short_data_loader)
 
+        # 对中等长度序列进行推理
         mid_data = Data_CHLS(len_seq_dict['mid'], args)
         mid_data_loader = mid_data.get_pytorch_dataloaders()
-        print('--------------Mid-----------------------')
+        print('--------------中等序列-----------------------')
         LSHT_inference(best_model, args, mid_data_loader)
 
+        # 对中长序列进行推理
         mid_long_data = Data_CHLS(len_seq_dict['mid_long'], args)
         mid_long_data_loader = mid_long_data.get_pytorch_dataloaders()
-        print('--------------Mid_long-----------------------')
+        print('--------------中长序列-----------------------')
         LSHT_inference(best_model, args, mid_long_data_loader)
 
+        # 对长序列进行推理
         long_data = Data_CHLS(len_seq_dict['long'], args)
         long_data_loader = long_data.get_pytorch_dataloaders()
-        print('--------------Long-----------------------')
+        print('--------------长序列-----------------------')
         LSHT_inference(best_model, args, long_data_loader)
     
 
