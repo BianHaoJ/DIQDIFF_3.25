@@ -55,6 +55,14 @@ parser.add_argument('--long_head', default=False, help='Long and short sequence,
 parser.add_argument('--diversity_measure', default=False, help='Measure the diversity of recommendation results')
 parser.add_argument('--epoch_time_avg', default=False, help='Calculate the average time of one epoch training')
 parser.add_argument("--num_hidden_layers", type=int, default=1, help="number of layers")
+parser.add_argument('--rep_pad', action='store_true', help='use repeated padding in training')
+parser.add_argument('--rep_pad_mode', type=str, default='rand_1_max',
+                    choices=['fix', 'max', 'rand_0_max', 'rand_1_max'],
+                    help='repeated padding mode')
+parser.add_argument('--rep_pad_fixed_num', type=int, default=1,
+                    help='fixed repeated times when rep_pad_mode=fix')
+parser.add_argument('--rep_pad_delimiter', action='store_true',
+                    help='insert delimiter 0 between repeated segments')
 args = parser.parse_args()
 
 print(args)
