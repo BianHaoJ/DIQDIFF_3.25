@@ -14,7 +14,7 @@ from codiffu import CoDiffu
 from trainer import model_train, LSHT_inference
 from collections import Counter
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default='amazon_beauty', help='Dataset name: toys, amazon_beauty, steam, ml-1m')
@@ -63,6 +63,8 @@ parser.add_argument('--rep_pad_fixed_num', type=int, default=1,
                     help='fixed repeated times when rep_pad_mode=fix')
 parser.add_argument('--rep_pad_delimiter', action='store_true',
                     help='insert delimiter 0 between repeated segments')
+parser.add_argument('--use_last_item_for_code', action='store_true',
+                    help='enable code scoring with both sequence history and last interacted item embedding')
 args = parser.parse_args()
 
 print(args)

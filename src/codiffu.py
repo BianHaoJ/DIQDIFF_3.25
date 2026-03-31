@@ -65,7 +65,9 @@ class CoDiffu(nn.Module):
         # self.encoder=SASRecModel(args,self.item_num)
         self.n_clusters = args.num_cluster
         self.n_iters = args.num_iter
-        self.mlp= nn.Sequential(nn.Linear(self.hidden_size*args.max_len, self.n_clusters))
+        self.use_last_item_for_code = getattr(args, "use_last_item_for_code", False)
+        mlp_input_dim = self.hidden_size * args.max_len + (self.hidden_size if self.use_last_item_for_code else 0)
+        self.mlp= nn.Sequential(nn.Linear(mlp_input_dim, self.n_clusters))
         # self.centroids = torch.zeros(self.n_clusters,args.max_len,args.hidden_size).cuda()
 
         
@@ -208,11 +210,13 @@ class CoDiffu(nn.Module):
     def diffu_rep_pre(self, rep_diffu):
         scores = torch.matmul(rep_diffu, self.item_embeddings.weight.t())
         return scores
-    def intent_cluster(self,input,n_clusters):
+    def intent_cluster(self,input,n_clusters,last_item_emb=None):
         X=input.view(input.shape[0],-1)
+        mlp_input = X
+        if self.use_last_item_for_code and last_item_emb is not None:
+            mlp_input = torch.cat([X, last_item_emb], dim=1)
         centers = X[torch.randperm(X.size(0))[:n_clusters]].to(input.device)
-        labels=self.mlp(X)
-        labels = F.gumbel_softmax(labels, tau=0.1, hard=True)
+        labels=self.mlp(mlp_input)
         # labels = torch.argmax(labels, dim=1)
 
         for i in range(self.n_clusters):
@@ -247,11 +251,13 @@ class CoDiffu(nn.Module):
         item_embeddings = self.embed_dropout(item_embeddings)  ## dropout first than layernorm
 
         item_embeddings = self.LayerNorm(item_embeddings)
+        mask_seq = (sequence>0).float()
+        seq_len = mask_seq.sum(dim=1).long().clamp(min=1)
+        last_item_emb = item_embeddings[torch.arange(item_embeddings.size(0), device=item_embeddings.device), seq_len - 1]
         # input=self.encoder(sequence)[:,-1,:]
         # self.centroids, self.labels = KMeans(item_embeddings, self.n_clusters, self.n_iters)
-        self.centroids, self.labels = self.intent_cluster(item_embeddings, self.n_clusters)
-
-        mask_seq = (sequence>0).float()
+        
+        self.centroids, self.labels = self.intent_cluster(item_embeddings, self.n_clusters, last_item_emb=last_item_emb)
         
         if train_flag:
             tag_emb = self.item_embeddings(tag.squeeze(-1))  ## B x H
@@ -262,7 +268,5 @@ class CoDiffu(nn.Module):
             rep_diffu = self.reverse_p_sample(item_embeddings, noise_x_t, mask_seq)
 
         return rep_diffu,self.centroids
-
-
-
-
+    
+    
