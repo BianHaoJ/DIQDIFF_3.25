@@ -14,7 +14,7 @@ from codiffu import CoDiffu
 from trainer import model_train, LSHT_inference
 from collections import Counter
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default='amazon_beauty', help='Dataset name: toys, amazon_beauty, steam, ml-1m')
