@@ -66,6 +66,7 @@ class CoDiffu(nn.Module):
         self.n_clusters = args.num_cluster
         self.n_iters = args.num_iter
         self.use_last_item_for_code = getattr(args, "use_last_item_for_code", False)
+        self.last_item_weight = getattr(args, "last_item_weight", 1.0)
         mlp_input_dim = self.hidden_size * args.max_len + (self.hidden_size if self.use_last_item_for_code else 0)
         self.mlp= nn.Sequential(nn.Linear(mlp_input_dim, self.n_clusters))
         # self.centroids = torch.zeros(self.n_clusters,args.max_len,args.hidden_size).cuda()
@@ -214,7 +215,8 @@ class CoDiffu(nn.Module):
         X=input.view(input.shape[0],-1)
         mlp_input = X
         if self.use_last_item_for_code and last_item_emb is not None:
-            mlp_input = torch.cat([X, last_item_emb], dim=1)
+            weighted_last_item_emb = last_item_emb * self.last_item_weight
+            mlp_input = torch.cat([X, weighted_last_item_emb], dim=1)
         centers = X[torch.randperm(X.size(0))[:n_clusters]].to(input.device)
         labels=self.mlp(mlp_input)
         # labels = torch.argmax(labels, dim=1)

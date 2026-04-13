@@ -65,6 +65,8 @@ parser.add_argument('--rep_pad_delimiter', action='store_true',
                     help='insert delimiter 0 between repeated segments')
 parser.add_argument('--use_last_item_for_code', action='store_true',
                     help='enable code scoring with both sequence history and last interacted item embedding')
+parser.add_argument('--last_item_weight', type=float, default=1.0,
+                    help='weight factor for last interacted item embedding when use_last_item_for_code is enabled')
 args = parser.parse_args()
 
 print(args)
