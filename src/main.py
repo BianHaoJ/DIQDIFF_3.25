@@ -45,6 +45,18 @@ parser.add_argument('--diffusion_steps', type=int, default=32, help='Diffusion s
 # parser.add_argument('--lambda_uncertainty', type=float, default=0.001, help='uncertainty weight')
 parser.add_argument('--lambda_intent', type=float, default=1, help='intent weight')
 parser.add_argument('--lambda_history', type=float, default=1, help='history weight')
+parser.add_argument('--history_weight_mode', type=str, default='fixed', choices=['fixed', 'piecewise'],
+                    help='history weight mode: fixed uses lambda_history; piecewise uses seq length ranges')
+parser.add_argument('--history_short_threshold', type=int, default=10,
+                    help='short sequence threshold for piecewise history weighting')
+parser.add_argument('--history_medium_threshold', type=int, default=50,
+                    help='medium sequence threshold for piecewise history weighting')
+parser.add_argument('--history_weight_short', type=float, default=0.5,
+                    help='history weight for short sequences when history_weight_mode=piecewise')
+parser.add_argument('--history_weight_medium', type=float, default=0.2,
+                    help='history weight for medium sequences when history_weight_mode=piecewise')
+parser.add_argument('--history_weight_long', type=float, default=0.05,
+                    help='history weight for long sequences when history_weight_mode=piecewise')
 parser.add_argument('--lambda_contra', type=float, default=1, help='contrastive learnning weight')
 parser.add_argument('--noise_schedule', default='trunc_lin', help='Beta generation')  ## cosine, linear, trunc_cos, trunc_lin, pw_lin, sqrt
 parser.add_argument('--rescale_timesteps', default=True, help='rescal timesteps')

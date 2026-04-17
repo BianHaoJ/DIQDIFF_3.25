@@ -53,6 +53,12 @@ class CoDiffu(nn.Module):
         self.time_embed = nn.Sequential(nn.Linear(self.hidden_size, self.hidden_size * 4), SiLU(), nn.Linear(self.hidden_size * 4, self.hidden_size))
         self.att = Transformer_rep(args)
         self.lambda_history = args.lambda_history
+        self.history_weight_mode = getattr(args, "history_weight_mode", "fixed")
+        self.history_short_threshold = getattr(args, "history_short_threshold", 10)
+        self.history_medium_threshold = getattr(args, "history_medium_threshold", 50)
+        self.history_weight_short = getattr(args, "history_weight_short", 0.5)
+        self.history_weight_medium = getattr(args, "history_weight_medium", 0.2)
+        self.history_weight_long = getattr(args, "history_weight_long", 0.05)
         self.lambda_intent = args.lambda_intent
         self.dropout = nn.Dropout(args.dropout)
         self.norm_diffu_rep = LayerNorm(self.hidden_size)
@@ -180,7 +186,24 @@ class CoDiffu(nn.Module):
     def denoise(self,item_rep, x_t, t, mask_seq):
         emb_t = self.time_embed(self.timestep_embedding(t, self.hidden_size))
         x_t = x_t + emb_t
-        res= self.att(item_rep*self.lambda_history + 0.001 * x_t.unsqueeze(1)+self.centroids[self.labels]*self.lambda_intent, mask_seq)
+        if self.history_weight_mode == "piecewise":
+            seq_len = mask_seq.sum(dim=1)
+            history_weight = torch.full_like(seq_len, self.history_weight_long, dtype=item_rep.dtype)
+            history_weight = torch.where(
+                seq_len < self.history_medium_threshold,
+                torch.full_like(history_weight, self.history_weight_medium),
+                history_weight,
+            )
+            history_weight = torch.where(
+                seq_len < self.history_short_threshold,
+                torch.full_like(history_weight, self.history_weight_short),
+                history_weight,
+            )
+            history_weight = history_weight.unsqueeze(-1).unsqueeze(-1)
+        else:
+            history_weight = self.lambda_history
+
+        res= self.att(item_rep * history_weight + 0.001 * x_t.unsqueeze(1)+self.centroids[self.labels]*self.lambda_intent, mask_seq)
         res= self.norm_diffu_rep(self.dropout(res))
        
         # out=self.mlp(x_t)
