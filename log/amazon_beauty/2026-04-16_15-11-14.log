@@ -1,0 +1,7 @@
+2026/04/16 15:11:14 - __main__ - INFO - 172 - main - Namespace(batch_size=1024, dataset='amazon_beauty', decay_step=100, description='Diffu_norm_score', device='cuda', diffusion_steps=32, diversity_measure=False, dropout=0.1, emb_dropout=0.3, epoch_time_avg=False, epochs=300, eval_interval=2, gamma=0.1, hidden_act='gelu', hidden_size=128, item_num=12101, lambda_contra=0.05, lambda_history=1.0, lambda_intent=0.6, last_item_weight=0.05, log_file='log/', long_head=False, loss_lambda=0.001, lr=0.001, max_len=50, metric_ks=[5, 10, 20], momentum=None, noise_schedule='trunc_lin', num_blocks=4, num_cluster=8, num_gpu=1, num_hidden_layers=1, num_iter=20, optimizer='Adam', patience=10, random_seed=1997, rep_pad=False, rep_pad_delimiter=False, rep_pad_fixed_num=1, rep_pad_mode='rand_1_max', rescale_timesteps=True, schedule_sampler_name='lossaware', use_last_item_for_code=True, weight_decay=0)
+2026/04/16 15:11:14 - __main__ - INFO - 124 - trainer - Epoch: 0
+2026/04/16 15:11:15 - __main__ - INFO - 142 - trainer - [0/129] Loss: 51.0639 Loss_contra: 0.0393
+2026/04/16 15:11:17 - __main__ - INFO - 142 - trainer - [26/129] Loss: 35.2974 Loss_contra: 3.3959
+2026/04/16 15:11:20 - __main__ - INFO - 142 - trainer - [52/129] Loss: 30.5571 Loss_contra: 3.6235
+2026/04/16 15:11:22 - __main__ - INFO - 142 - trainer - [78/129] Loss: 27.6837 Loss_contra: 3.6054
+2026/04/16 15:11:27 - __main__ - INFO - 142 - trainer - [104/129] Loss: 25.1610 Loss_contra: 3.5401
