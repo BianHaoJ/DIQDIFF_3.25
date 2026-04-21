@@ -1,0 +1,219 @@
+2026/04/19 15:13:32 - __main__ - INFO - 184 - main - Namespace(batch_size=1024, dataset='steam', decay_step=100, description='Diffu_norm_score', device='cuda', diffusion_steps=32, diversity_measure=False, dropout=0.1, emb_dropout=0.3, epoch_time_avg=False, epochs=300, eval_interval=2, gamma=0.1, hidden_act='gelu', hidden_size=128, history_medium_threshold=50, history_short_threshold=10, history_weight_long=0.01, history_weight_medium=0.05, history_weight_mode='piecewise', history_weight_short=0.1, item_num=13044, lambda_contra=0.05, lambda_history=1.0, lambda_intent=0.6, last_item_weight=1.0, log_file='log/', long_head=False, loss_lambda=0.001, lr=0.001, max_len=50, metric_ks=[5, 10, 20], momentum=None, noise_schedule='trunc_lin', num_blocks=4, num_cluster=8, num_gpu=1, num_hidden_layers=1, num_iter=20, optimizer='Adam', patience=10, random_seed=1997, rep_pad=False, rep_pad_delimiter=False, rep_pad_fixed_num=1, rep_pad_mode='rand_1_max', rescale_timesteps=True, schedule_sampler_name='lossaware', use_last_item_for_code=False, weight_decay=0)
+2026/04/19 15:13:35 - __main__ - INFO - 124 - trainer - Epoch: 0
+2026/04/19 15:13:36 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 44.5477 Loss_contra: 0.8444
+2026/04/19 15:15:03 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 9.2963 Loss_contra: 2.4439
+2026/04/19 15:16:41 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 8.3124 Loss_contra: 4.9601
+2026/04/19 15:18:19 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 8.2661 Loss_contra: 5.7994
+2026/04/19 15:19:58 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 8.1238 Loss_contra: 5.9102
+2026/04/19 15:21:35 - __main__ - INFO - 124 - trainer - Epoch: 1
+2026/04/19 15:21:35 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 8.1791 Loss_contra: 5.8289
+2026/04/19 15:23:13 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 8.2492 Loss_contra: 5.9605
+2026/04/19 15:24:52 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 8.1359 Loss_contra: 5.2768
+2026/04/19 15:26:30 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 8.0818 Loss_contra: 5.2739
+2026/04/19 15:28:08 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 8.1470 Loss_contra: 4.7624
+2026/04/19 15:29:46 - __main__ - INFO - 124 - trainer - Epoch: 2
+2026/04/19 15:29:46 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.9994 Loss_contra: 4.7629
+2026/04/19 15:31:24 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 8.0498 Loss_contra: 4.0367
+2026/04/19 15:33:02 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 8.0543 Loss_contra: 3.7246
+2026/04/19 15:34:40 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.8678 Loss_contra: 2.9987
+2026/04/19 15:36:18 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.9410 Loss_contra: 2.5250
+2026/04/19 15:37:55 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 15:37:55.624162
+2026/04/19 15:43:29 - __main__ - INFO - 187 - trainer - {'Best_HR@5': 3.8203, 'Best_NDCG@5': 2.3882, 'Best_HR@10': 6.3635, 'Best_NDCG@10': 3.2041, 'Best_HR@20': 10.1295, 'Best_NDCG@20': 4.1528}
+2026/04/19 15:43:29 - __main__ - INFO - 188 - trainer - {'Best_epoch_HR@5': 2, 'Best_epoch_NDCG@5': 2, 'Best_epoch_HR@10': 2, 'Best_epoch_NDCG@10': 2, 'Best_epoch_HR@20': 2, 'Best_epoch_NDCG@20': 2}
+2026/04/19 15:43:29 - __main__ - INFO - 124 - trainer - Epoch: 3
+2026/04/19 15:43:30 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.8333 Loss_contra: 2.4891
+2026/04/19 15:45:08 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.8415 Loss_contra: 1.8837
+2026/04/19 15:46:46 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.8008 Loss_contra: 1.6021
+2026/04/19 15:48:24 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.8700 Loss_contra: 1.6465
+2026/04/19 15:50:03 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.7616 Loss_contra: 1.3268
+2026/04/19 15:51:40 - __main__ - INFO - 124 - trainer - Epoch: 4
+2026/04/19 15:51:40 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.6403 Loss_contra: 1.3655
+2026/04/19 15:53:18 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.7287 Loss_contra: 1.0660
+2026/04/19 15:54:56 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.6866 Loss_contra: 1.2548
+2026/04/19 15:56:34 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.6405 Loss_contra: 1.2465
+2026/04/19 15:58:12 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.6172 Loss_contra: 1.0625
+2026/04/19 15:59:50 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 15:59:50.830739
+2026/04/19 16:05:24 - __main__ - INFO - 187 - trainer - {'Best_HR@5': 3.8203, 'Best_NDCG@5': 2.3882, 'Best_HR@10': 6.3884, 'Best_NDCG@10': 3.2323, 'Best_HR@20': 10.2471, 'Best_NDCG@20': 4.1976}
+2026/04/19 16:05:24 - __main__ - INFO - 188 - trainer - {'Best_epoch_HR@5': 2, 'Best_epoch_NDCG@5': 2, 'Best_epoch_HR@10': 4, 'Best_epoch_NDCG@10': 4, 'Best_epoch_HR@20': 4, 'Best_epoch_NDCG@20': 4}
+2026/04/19 16:05:24 - __main__ - INFO - 124 - trainer - Epoch: 5
+2026/04/19 16:05:24 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.5707 Loss_contra: 0.8692
+2026/04/19 16:07:03 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.5546 Loss_contra: 0.8658
+2026/04/19 16:08:41 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.6170 Loss_contra: 0.8717
+2026/04/19 16:10:19 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.6000 Loss_contra: 0.7660
+2026/04/19 16:11:57 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.5818 Loss_contra: 0.6752
+2026/04/19 16:13:35 - __main__ - INFO - 124 - trainer - Epoch: 6
+2026/04/19 16:13:35 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.4809 Loss_contra: 0.7318
+2026/04/19 16:15:13 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.4951 Loss_contra: 0.6254
+2026/04/19 16:16:51 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.6591 Loss_contra: 0.8190
+2026/04/19 16:18:29 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.4714 Loss_contra: 0.6401
+2026/04/19 16:20:07 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.5821 Loss_contra: 0.5859
+2026/04/19 16:21:45 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 16:21:45.397990
+2026/04/19 16:27:19 - __main__ - INFO - 187 - trainer - {'Best_HR@5': 3.8203, 'Best_NDCG@5': 2.4945, 'Best_HR@10': 6.4563, 'Best_NDCG@10': 3.3419, 'Best_HR@20': 10.3069, 'Best_NDCG@20': 4.3092}
+2026/04/19 16:27:19 - __main__ - INFO - 188 - trainer - {'Best_epoch_HR@5': 2, 'Best_epoch_NDCG@5': 6, 'Best_epoch_HR@10': 6, 'Best_epoch_NDCG@10': 6, 'Best_epoch_HR@20': 6, 'Best_epoch_NDCG@20': 6}
+2026/04/19 16:27:19 - __main__ - INFO - 124 - trainer - Epoch: 7
+2026/04/19 16:27:19 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.4949 Loss_contra: 0.6840
+2026/04/19 16:28:58 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.4704 Loss_contra: 0.5507
+2026/04/19 16:30:35 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.5179 Loss_contra: 0.7835
+2026/04/19 16:32:14 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.4688 Loss_contra: 0.6158
+2026/04/19 16:33:52 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.4088 Loss_contra: 0.6184
+2026/04/19 16:35:29 - __main__ - INFO - 124 - trainer - Epoch: 8
+2026/04/19 16:35:29 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.3214 Loss_contra: 0.5474
+2026/04/19 16:37:07 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.4908 Loss_contra: 0.5711
+2026/04/19 16:38:45 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.4799 Loss_contra: 0.5288
+2026/04/19 16:40:23 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.3373 Loss_contra: 0.6201
+2026/04/19 16:42:01 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.3858 Loss_contra: 0.6585
+2026/04/19 16:43:39 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 16:43:39.703943
+2026/04/19 16:49:13 - __main__ - INFO - 187 - trainer - {'Best_HR@5': 4.2953, 'Best_NDCG@5': 2.7526, 'Best_HR@10': 7.0626, 'Best_NDCG@10': 3.6404, 'Best_HR@20': 11.1667, 'Best_NDCG@20': 4.6708}
+2026/04/19 16:49:13 - __main__ - INFO - 188 - trainer - {'Best_epoch_HR@5': 8, 'Best_epoch_NDCG@5': 8, 'Best_epoch_HR@10': 8, 'Best_epoch_NDCG@10': 8, 'Best_epoch_HR@20': 8, 'Best_epoch_NDCG@20': 8}
+2026/04/19 16:49:13 - __main__ - INFO - 124 - trainer - Epoch: 9
+2026/04/19 16:49:13 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.3753 Loss_contra: 0.4862
+2026/04/19 16:50:52 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.4390 Loss_contra: 0.5052
+2026/04/19 16:52:30 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.4180 Loss_contra: 0.4537
+2026/04/19 16:54:08 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.3347 Loss_contra: 0.5034
+2026/04/19 16:55:46 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.3379 Loss_contra: 0.4443
+2026/04/19 16:57:24 - __main__ - INFO - 124 - trainer - Epoch: 10
+2026/04/19 16:57:24 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.3502 Loss_contra: 0.4664
+2026/04/19 16:59:02 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.4823 Loss_contra: 0.5475
+2026/04/19 17:00:40 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.2771 Loss_contra: 0.3601
+2026/04/19 17:02:18 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.3617 Loss_contra: 0.3602
+2026/04/19 17:03:56 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.3864 Loss_contra: 0.5385
+2026/04/19 17:05:34 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 17:05:34.293004
+2026/04/19 17:11:08 - __main__ - INFO - 187 - trainer - {'Best_HR@5': 4.4371, 'Best_NDCG@5': 2.7991, 'Best_HR@10': 7.4306, 'Best_NDCG@10': 3.7594, 'Best_HR@20': 11.8568, 'Best_NDCG@20': 4.8703}
+2026/04/19 17:11:08 - __main__ - INFO - 188 - trainer - {'Best_epoch_HR@5': 10, 'Best_epoch_NDCG@5': 10, 'Best_epoch_HR@10': 10, 'Best_epoch_NDCG@10': 10, 'Best_epoch_HR@20': 10, 'Best_epoch_NDCG@20': 10}
+2026/04/19 17:11:08 - __main__ - INFO - 124 - trainer - Epoch: 11
+2026/04/19 17:11:08 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.2097 Loss_contra: 0.3973
+2026/04/19 17:12:47 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.2816 Loss_contra: 0.3727
+2026/04/19 17:14:25 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.3566 Loss_contra: 0.4756
+2026/04/19 17:16:03 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.2540 Loss_contra: 0.4989
+2026/04/19 17:17:41 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.2428 Loss_contra: 0.3410
+2026/04/19 17:19:18 - __main__ - INFO - 124 - trainer - Epoch: 12
+2026/04/19 17:19:18 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.5241 Loss_contra: 0.3758
+2026/04/19 17:20:56 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.2526 Loss_contra: 0.3552
+2026/04/19 17:22:34 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.2641 Loss_contra: 0.3562
+2026/04/19 17:24:12 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.2279 Loss_contra: 0.3921
+2026/04/19 17:25:51 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.2470 Loss_contra: 0.3973
+2026/04/19 17:27:28 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 17:27:28.895385
+2026/04/19 17:33:02 - __main__ - INFO - 124 - trainer - Epoch: 13
+2026/04/19 17:33:02 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.2391 Loss_contra: 0.3203
+2026/04/19 17:34:41 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.2400 Loss_contra: 0.3514
+2026/04/19 17:36:19 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.2670 Loss_contra: 0.3754
+2026/04/19 17:37:57 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.2697 Loss_contra: 0.3694
+2026/04/19 17:39:35 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.3575 Loss_contra: 0.3071
+2026/04/19 17:41:13 - __main__ - INFO - 124 - trainer - Epoch: 14
+2026/04/19 17:41:13 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.2452 Loss_contra: 0.3460
+2026/04/19 17:42:51 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 7.1993 Loss_contra: 0.2955
+2026/04/19 17:44:29 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 7.1535 Loss_contra: 0.3322
+2026/04/19 17:46:07 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.0385 Loss_contra: 0.2759
+2026/04/19 17:47:45 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 7.1015 Loss_contra: 0.3299
+2026/04/19 17:49:23 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 17:49:23.037195
+2026/04/19 17:54:57 - __main__ - INFO - 124 - trainer - Epoch: 15
+2026/04/19 17:54:57 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 7.1659 Loss_contra: 0.2963
+2026/04/19 17:56:36 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 6.9832 Loss_contra: 0.3109
+2026/04/19 17:58:14 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 6.9718 Loss_contra: 0.3158
+2026/04/19 17:59:52 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 7.0046 Loss_contra: 0.3797
+2026/04/19 18:01:30 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 6.6336 Loss_contra: 0.2782
+2026/04/19 18:03:07 - __main__ - INFO - 124 - trainer - Epoch: 16
+2026/04/19 18:03:08 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 6.6150 Loss_contra: 0.2835
+2026/04/19 18:04:45 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 6.9569 Loss_contra: 0.2985
+2026/04/19 18:06:24 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 6.6902 Loss_contra: 0.1876
+2026/04/19 18:08:02 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 6.4463 Loss_contra: 0.2214
+2026/04/19 18:09:40 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 6.3769 Loss_contra: 0.3393
+2026/04/19 18:11:17 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 18:11:17.649200
+2026/04/19 18:16:51 - __main__ - INFO - 124 - trainer - Epoch: 17
+2026/04/19 18:16:51 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 6.2327 Loss_contra: 0.1948
+2026/04/19 18:18:30 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 6.1243 Loss_contra: 0.2356
+2026/04/19 18:20:08 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 6.2981 Loss_contra: 0.2023
+2026/04/19 18:21:46 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 6.1834 Loss_contra: 0.1848
+2026/04/19 18:23:24 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 5.9390 Loss_contra: 0.1914
+2026/04/19 18:25:02 - __main__ - INFO - 124 - trainer - Epoch: 18
+2026/04/19 18:25:02 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 5.7413 Loss_contra: 0.1834
+2026/04/19 18:26:40 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 5.7381 Loss_contra: 0.1674
+2026/04/19 18:28:18 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 5.6919 Loss_contra: 0.1284
+2026/04/19 18:29:56 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 5.5704 Loss_contra: 0.1437
+2026/04/19 18:31:34 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 5.5926 Loss_contra: 0.1375
+2026/04/19 18:33:11 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 18:33:11.839412
+2026/04/19 18:38:45 - __main__ - INFO - 124 - trainer - Epoch: 19
+2026/04/19 18:38:46 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 5.5649 Loss_contra: 0.1652
+2026/04/19 18:40:25 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 5.4271 Loss_contra: 0.1350
+2026/04/19 18:42:02 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 5.3749 Loss_contra: 0.1559
+2026/04/19 18:43:40 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 5.1235 Loss_contra: 0.1264
+2026/04/19 18:45:18 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 5.2664 Loss_contra: 0.1391
+2026/04/19 18:46:56 - __main__ - INFO - 124 - trainer - Epoch: 20
+2026/04/19 18:46:56 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 5.2111 Loss_contra: 0.1391
+2026/04/19 18:48:34 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 5.1744 Loss_contra: 0.1229
+2026/04/19 18:50:12 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 5.3161 Loss_contra: 0.1301
+2026/04/19 18:51:50 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 5.1104 Loss_contra: 0.1225
+2026/04/19 18:53:28 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 5.3819 Loss_contra: 0.1298
+2026/04/19 18:55:06 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 18:55:06.115166
+2026/04/19 19:00:40 - __main__ - INFO - 124 - trainer - Epoch: 21
+2026/04/19 19:00:40 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 5.2096 Loss_contra: 0.1211
+2026/04/19 19:02:19 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 5.1543 Loss_contra: 0.1048
+2026/04/19 19:03:57 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.8235 Loss_contra: 0.1128
+2026/04/19 19:05:35 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 4.7796 Loss_contra: 0.1322
+2026/04/19 19:07:13 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 4.7866 Loss_contra: 0.1051
+2026/04/19 19:08:50 - __main__ - INFO - 124 - trainer - Epoch: 22
+2026/04/19 19:08:50 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 4.7415 Loss_contra: 0.1036
+2026/04/19 19:10:28 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 4.9738 Loss_contra: 0.1070
+2026/04/19 19:12:07 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.9154 Loss_contra: 0.1228
+2026/04/19 19:13:45 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 4.6331 Loss_contra: 0.1209
+2026/04/19 19:15:23 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 4.9393 Loss_contra: 0.1090
+2026/04/19 19:17:00 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 19:17:00.620364
+2026/04/19 19:22:34 - __main__ - INFO - 124 - trainer - Epoch: 23
+2026/04/19 19:22:34 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 4.8433 Loss_contra: 0.1226
+2026/04/19 19:24:13 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 4.7126 Loss_contra: 0.1177
+2026/04/19 19:25:51 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.5247 Loss_contra: 0.1095
+2026/04/19 19:27:29 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 4.7591 Loss_contra: 0.1122
+2026/04/19 19:29:08 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 4.4537 Loss_contra: 0.0857
+2026/04/19 19:30:45 - __main__ - INFO - 124 - trainer - Epoch: 24
+2026/04/19 19:30:45 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 4.4589 Loss_contra: 0.1019
+2026/04/19 19:32:23 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 4.5110 Loss_contra: 0.1040
+2026/04/19 19:34:01 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.3733 Loss_contra: 0.0958
+2026/04/19 19:35:39 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 4.4028 Loss_contra: 0.0909
+2026/04/19 19:37:17 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 4.6255 Loss_contra: 0.0942
+2026/04/19 19:38:55 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 19:38:55.089786
+2026/04/19 19:44:29 - __main__ - INFO - 124 - trainer - Epoch: 25
+2026/04/19 19:44:29 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 4.5120 Loss_contra: 0.1093
+2026/04/19 19:46:08 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 4.3218 Loss_contra: 0.1088
+2026/04/19 19:47:46 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.3553 Loss_contra: 0.0839
+2026/04/19 19:49:24 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 4.2846 Loss_contra: 0.0853
+2026/04/19 19:51:02 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 4.2707 Loss_contra: 0.1058
+2026/04/19 19:52:39 - __main__ - INFO - 124 - trainer - Epoch: 26
+2026/04/19 19:52:40 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 4.3698 Loss_contra: 0.0863
+2026/04/19 19:54:18 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 4.3878 Loss_contra: 0.0980
+2026/04/19 19:55:56 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.2544 Loss_contra: 0.0894
+2026/04/19 19:57:34 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 4.0837 Loss_contra: 0.0781
+2026/04/19 19:59:12 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 4.1978 Loss_contra: 0.0937
+2026/04/19 20:00:50 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 20:00:50.210152
+2026/04/19 20:06:23 - __main__ - INFO - 124 - trainer - Epoch: 27
+2026/04/19 20:06:24 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 4.1286 Loss_contra: 0.0927
+2026/04/19 20:08:02 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 3.9864 Loss_contra: 0.0796
+2026/04/19 20:09:40 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.3105 Loss_contra: 0.1058
+2026/04/19 20:11:18 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 4.1450 Loss_contra: 0.0777
+2026/04/19 20:12:57 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 4.1206 Loss_contra: 0.0892
+2026/04/19 20:14:34 - __main__ - INFO - 124 - trainer - Epoch: 28
+2026/04/19 20:14:34 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 3.9483 Loss_contra: 0.0919
+2026/04/19 20:16:12 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 3.9075 Loss_contra: 0.0797
+2026/04/19 20:17:50 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.0026 Loss_contra: 0.0940
+2026/04/19 20:19:28 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 4.1040 Loss_contra: 0.0876
+2026/04/19 20:21:06 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 3.9448 Loss_contra: 0.0782
+2026/04/19 20:22:44 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 20:22:44.431615
+2026/04/19 20:28:18 - __main__ - INFO - 124 - trainer - Epoch: 29
+2026/04/19 20:28:18 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 4.1859 Loss_contra: 0.1097
+2026/04/19 20:29:57 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 4.0502 Loss_contra: 0.1056
+2026/04/19 20:31:35 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 3.9250 Loss_contra: 0.0918
+2026/04/19 20:33:13 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 3.8454 Loss_contra: 0.0920
+2026/04/19 20:34:51 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 4.0109 Loss_contra: 0.0915
+2026/04/19 20:36:28 - __main__ - INFO - 124 - trainer - Epoch: 30
+2026/04/19 20:36:29 - __main__ - INFO - 142 - trainer - [0/2583] Loss: 3.6864 Loss_contra: 0.0697
+2026/04/19 20:38:07 - __main__ - INFO - 142 - trainer - [517/2583] Loss: 3.8680 Loss_contra: 0.0688
+2026/04/19 20:39:45 - __main__ - INFO - 142 - trainer - [1034/2583] Loss: 4.0105 Loss_contra: 0.0782
+2026/04/19 20:41:23 - __main__ - INFO - 142 - trainer - [1551/2583] Loss: 3.9524 Loss_contra: 0.0770
+2026/04/19 20:43:01 - __main__ - INFO - 142 - trainer - [2068/2583] Loss: 3.7826 Loss_contra: 0.0852
+2026/04/19 20:44:39 - __main__ - INFO - 152 - trainer - start predicting: 2026-04-19 20:44:39.145665
+2026/04/19 20:50:12 - __main__ - INFO - 195 - trainer - {'Best_HR@5': 4.4371, 'Best_NDCG@5': 2.7991, 'Best_HR@10': 7.4306, 'Best_NDCG@10': 3.7594, 'Best_HR@20': 11.8568, 'Best_NDCG@20': 4.8703}
+2026/04/19 20:50:12 - __main__ - INFO - 196 - trainer - {'Best_epoch_HR@5': 10, 'Best_epoch_NDCG@5': 10, 'Best_epoch_HR@10': 10, 'Best_epoch_NDCG@10': 10, 'Best_epoch_HR@20': 10, 'Best_epoch_NDCG@20': 10}
+2026/04/19 20:55:47 - __main__ - INFO - 223 - trainer - Test------------------------------------------------------
+2026/04/19 20:55:47 - __main__ - INFO - 225 - trainer - {'HR@5': 4.4209, 'NDCG@5': 2.7522, 'HR@10': 7.5345, 'NDCG@10': 3.7496, 'HR@20': 12.13, 'NDCG@20': 4.9047}
+2026/04/19 20:55:47 - __main__ - INFO - 227 - trainer - Best Eval---------------------------------------------------------
+2026/04/19 20:55:47 - __main__ - INFO - 230 - trainer - {'Best_HR@5': 4.4371, 'Best_NDCG@5': 2.7991, 'Best_HR@10': 7.4306, 'Best_NDCG@10': 3.7594, 'Best_HR@20': 11.8568, 'Best_NDCG@20': 4.8703}
+2026/04/19 20:55:47 - __main__ - INFO - 231 - trainer - {'Best_epoch_HR@5': 10, 'Best_epoch_NDCG@5': 10, 'Best_epoch_HR@10': 10, 'Best_epoch_NDCG@10': 10, 'Best_epoch_HR@20': 10, 'Best_epoch_NDCG@20': 10}
