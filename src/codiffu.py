@@ -73,7 +73,8 @@ class CoDiffu(nn.Module):
         self.n_clusters = args.num_cluster
         self.n_iters = args.num_iter
         self.use_last_item_for_code = getattr(args, "use_last_item_for_code", False)
-        self.last_item_weight = getattr(args, "last_item_weight", 1.0)
+        self.last_item_weight_mode = getattr(args, "last_item_weight_mode", "fixed")
+        self.last_item_weight_base = float(getattr(args, "last_item_weight", 1.0))
         mlp_input_dim = self.hidden_size * args.max_len + (self.hidden_size if self.use_last_item_for_code else 0)
         self.mlp= nn.Sequential(nn.Linear(mlp_input_dim, self.n_clusters))
         # self.centroids = torch.zeros(self.n_clusters,args.max_len,args.hidden_size).cuda()
@@ -239,11 +240,17 @@ class CoDiffu(nn.Module):
     def diffu_rep_pre(self, rep_diffu):
         scores = torch.matmul(rep_diffu, self.item_embeddings.weight.t())
         return scores
-    def intent_cluster(self,input,n_clusters,last_item_emb=None):
+    def intent_cluster(self,input,n_clusters,last_item_emb=None,last_item_weight=None):
         X=input.view(input.shape[0],-1)
         mlp_input = X
         if self.use_last_item_for_code and last_item_emb is not None:
-            weighted_last_item_emb = last_item_emb * self.last_item_weight
+            if isinstance(last_item_weight, torch.Tensor):
+                weight = last_item_weight
+            else:
+                weight = torch.tensor(self.last_item_weight_base, dtype=last_item_emb.dtype, device=last_item_emb.device)
+            if weight.dim() == 1:
+                weight = weight.unsqueeze(-1)
+            weighted_last_item_emb = last_item_emb * weight
             mlp_input = torch.cat([X, weighted_last_item_emb], dim=1)
         centers = X[torch.randperm(X.size(0))[:n_clusters]].to(input.device)
         labels=self.mlp(mlp_input)
@@ -283,11 +290,21 @@ class CoDiffu(nn.Module):
         item_embeddings = self.LayerNorm(item_embeddings)
         mask_seq = (sequence>0).float()
         seq_len = mask_seq.sum(dim=1).long().clamp(min=1)
-        last_item_emb = item_embeddings[torch.arange(item_embeddings.size(0), device=item_embeddings.device), seq_len - 1]
+        last_item_emb = None
+        last_item_weight = None
+        if self.last_item_weight_mode == "log":
+            last_item_weight = (self.last_item_weight_base / torch.log(seq_len.float() + 1.0)).to(item_embeddings.dtype)
+        else:
+            last_item_weight = torch.full_like(seq_len, self.last_item_weight_base, dtype=item_embeddings.dtype)
         # input=self.encoder(sequence)[:,-1,:]
         # self.centroids, self.labels = KMeans(item_embeddings, self.n_clusters, self.n_iters)
         
-        self.centroids, self.labels = self.intent_cluster(item_embeddings, self.n_clusters, last_item_emb=last_item_emb)
+        self.centroids, self.labels = self.intent_cluster(
+            item_embeddings,
+            self.n_clusters,
+            last_item_emb=last_item_emb,
+            last_item_weight=last_item_weight,
+        )
         
         if train_flag:
             tag_emb = self.item_embeddings(tag.squeeze(-1))  ## B x H

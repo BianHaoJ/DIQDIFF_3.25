@@ -45,10 +45,8 @@ parser.add_argument('--diffusion_steps', type=int, default=32, help='Diffusion s
 # parser.add_argument('--lambda_uncertainty', type=float, default=0.001, help='uncertainty weight')
 parser.add_argument('--lambda_intent', type=float, default=1, help='intent weight')
 parser.add_argument('--lambda_history', type=float, default=1, help='history weight')
-parser.add_argument('--history_weight_mode', type=str, default='fixed', choices=['fixed', 'log'],
-                    help='history weight mode: fixed uses lambda_history; log uses 1/log(seq_len+1)')
-parser.add_argument('--history_weight_mode', type=str, default='fixed', choices=['fixed', 'piecewise'],
-                    help='history weight mode: fixed uses lambda_history; piecewise uses seq length ranges')
+parser.add_argument('--history_weight_mode', type=str, default='fixed', choices=['fixed', 'log', 'piecewise'],
+                    help='history weight mode: fixed uses lambda_history; log uses 1/log(seq_len+1); piecewise uses seq length ranges')
 parser.add_argument('--history_short_threshold', type=int, default=10,
                     help='short sequence threshold for piecewise history weighting')
 parser.add_argument('--history_medium_threshold', type=int, default=50,
@@ -79,8 +77,10 @@ parser.add_argument('--rep_pad_delimiter', action='store_true',
                     help='insert delimiter 0 between repeated segments')
 parser.add_argument('--use_last_item_for_code', action='store_true',
                     help='enable code scoring with both sequence history and last interacted item embedding')
+parser.add_argument('--last_item_weight_mode', type=str, default='fixed', choices=['fixed', 'log'],
+                    help='last item weighting mode: fixed uses last_item_weight; log uses last_item_weight/log(seq_len+1)')
 parser.add_argument('--last_item_weight', type=float, default=1.0,
-                    help='weight factor for last interacted item embedding when use_last_item_for_code is enabled')
+                    help='base weight factor for last interacted item embedding when use_last_item_for_code is enabled')
 args = parser.parse_args()
 
 print(args)
