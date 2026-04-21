@@ -45,6 +45,8 @@ parser.add_argument('--diffusion_steps', type=int, default=32, help='Diffusion s
 # parser.add_argument('--lambda_uncertainty', type=float, default=0.001, help='uncertainty weight')
 parser.add_argument('--lambda_intent', type=float, default=1, help='intent weight')
 parser.add_argument('--lambda_history', type=float, default=1, help='history weight')
+parser.add_argument('--history_weight_mode', type=str, default='fixed', choices=['fixed', 'log'],
+                    help='history weight mode: fixed uses lambda_history; log uses 1/log(seq_len+1)')
 parser.add_argument('--history_weight_mode', type=str, default='fixed', choices=['fixed', 'piecewise'],
                     help='history weight mode: fixed uses lambda_history; piecewise uses seq length ranges')
 parser.add_argument('--history_short_threshold', type=int, default=10,

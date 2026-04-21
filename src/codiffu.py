@@ -52,6 +52,7 @@ class CoDiffu(nn.Module):
         self.rescale_timesteps = args.rescale_timesteps
         self.time_embed = nn.Sequential(nn.Linear(self.hidden_size, self.hidden_size * 4), SiLU(), nn.Linear(self.hidden_size * 4, self.hidden_size))
         self.att = Transformer_rep(args)
+        self.history_weight_mode = getattr(args, "history_weight_mode", "fixed")
         self.lambda_history = args.lambda_history
         self.history_weight_mode = getattr(args, "history_weight_mode", "fixed")
         self.history_short_threshold = getattr(args, "history_short_threshold", 10)
@@ -199,6 +200,10 @@ class CoDiffu(nn.Module):
                 torch.full_like(history_weight, self.history_weight_short),
                 history_weight,
             )
+            history_weight = history_weight.unsqueeze(-1).unsqueeze(-1)
+        elif self.history_weight_mode == "log":
+            seq_len = mask_seq.sum(dim=1).clamp(min=1.0)
+            history_weight = (1.0 / torch.log(seq_len + 1.0)).to(item_rep.dtype)
             history_weight = history_weight.unsqueeze(-1).unsqueeze(-1)
         else:
             history_weight = self.lambda_history
